@@ -1,0 +1,32 @@
+{
+  "synthetic": true,
+  "time_range_utc": [
+    "2026-11-01T09:00:00+00:00",
+    "2026-11-01T11:59:00+00:00"
+  ],
+  "services": [
+    "ts-gateway",
+    "ts-order-service",
+    "ts-user-service",
+    "ts-ticket-service",
+    "ts-route-service",
+    "ts-station-service",
+    "ts-travel-service",
+    "ts-payment-service",
+    "ts-seat-service",
+    "ts-preserve-service",
+    "ts-consign-service",
+    "ts-notification-service",
+    "ts-security-service",
+    "ts-config-service",
+    "ts-food-service"
+  ],
+  "counts": {
+    "logs": 5439,
+    "metrics": 2700,
+    "trace_spans": 4000,
+    "events": 12,
+    "incidents": 6
+  },
+  "warning": "Do not use ground-truth fields as model input features."
+}

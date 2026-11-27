@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Train Ticket AI Observability & Root Cause Analysis System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <!-- Chart.js for visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Vis.js for Train Ticket Microservices Topology Graph -->
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+
+  <!-- Top System Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">TT-OBSERVE AI</div>
+      <div>
+        <div class="logo-title">Train Ticket Microservices Observability & RCA Engine</div>
+        <div style="font-size: 11px; color: var(--text-muted);">FudanSELab Train Ticket (~41 Microservices) Telemetry Intelligence</div>
+      </div>
+    </div>
+    <div class="system-stats-bar">
+      <div class="stat-pill">
+        <div class="status-dot"></div>
+        <span id="stat-system-status">System: ONLINE</span>
+      </div>
+      <div class="stat-pill">
+        <span style="color: var(--accent-cyan);">Active Model:</span>
+        <strong id="stat-active-model">None</strong>
+      </div>
+      <div class="stat-pill">
+        <span style="color: var(--accent-purple);">Dataset:</span>
+        <strong id="stat-active-dataset">None</strong>
+      </div>
+      <div class="stat-pill">
+        <span style="color: var(--accent-amber);">Records:</span>
+        <strong id="stat-active-records">0</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="nav-tabs">
+    <div class="nav-tab active" onclick="switchTab('tab-data-hub')">1. Telemetry Hub & Quality Profiler</div>
+    <div class="nav-tab" onclick="switchTab('tab-labeling')">2. Labeling Studio</div>
+    <div class="nav-tab" onclick="switchTab('tab-training')">3. ML Training & Evaluation (XGBoost vs RF)</div>
+    <div class="nav-tab" onclick="switchTab('tab-inference')">4. Telemetry Inference & Anomalies</div>
+    <div class="nav-tab" onclick="switchTab('tab-xai')">5. SHAP Explainable AI</div>
+    <div class="nav-tab" onclick="switchTab('tab-rca')">6. Root Cause Analysis (RCA)</div>
+    <div class="nav-tab" onclick="switchTab('tab-playbooks')">7. Intelligent Remediation</div>
+  </nav>
+
+  <main>
+
+    <!-- TAB 1: TELEMETRY HUB & DATA QUALITY PROFILER -->
+    <div id="tab-data-hub" class="tab-pane active">
+      <div class="grid-2">
+        <!-- Ingestion Card -->
+        <div class="card">
+          <div class="card-title">
+            <span>Telemetry File Ingestion</span>
+            <span class="badge badge-service">Logs / Metrics / Traces / Events</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Upload manual telemetry datasets in CSV, JSON, JSONL, or TXT formats collected from Train Ticket microservices.
+          </p>
+          <div class="drop-zone" onclick="document.getElementById('file-upload-input').click()">
+            <div style="font-size: 32px; margin-bottom: 8px;">📂</div>
+            <div style="font-weight: 600;">Drag and drop telemetry files here, or click to browse</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Supports Java Spring Boot logs, Prometheus metrics, Jaeger traces, K8s events</div>
+            <input type="file" id="file-upload-input" style="display: none;" onchange="handleFileUpload(event)">
+          </div>
+          <div style="margin-top: 16px; display: flex; gap: 10px;">
+            <button class="btn btn-accent" onclick="loadBenchmarkDataset()">
+              ⚡ Load Pre-packaged Train Ticket Benchmark
+            </button>
+            <button class="btn btn-secondary" onclick="aggregateTelemetry()">
+              ⚙ Aggregate into 30s Time Windows
+            </button>
+          </div>
+        </div>
+
+        <!-- Data Quality Profiling Summary -->
+        <div class="card">
+          <div class="card-title">
+            <span>Data Quality Profile</span>
+            <span id="profile-detected-type" class="badge badge-normal">Unknown</span>
+          </div>
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-muted);">TOTAL ROWS</div>
+              <div id="profile-total-rows" style="font-size: 20px; font-weight: 700; color: var(--accent-cyan);">0</div>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-muted);">COLUMNS</div>
+              <div id="profile-total-cols" style="font-size: 20px; font-weight: 700; color: var(--accent-blue);">0</div>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-muted);">DUPLICATES</div>
+              <div id="profile-duplicates" style="font-size: 20px; font-weight: 700; color: var(--accent-amber);">0</div>
+            </div>
+          </div>
+          <div style="font-size: 12px; margin-bottom: 8px;">
+            <strong>Timestamp Range:</strong> <span id="profile-time-range" style="color: var(--text-muted);">None</span>
+          </div>
+          <div style="font-size: 12px; margin-bottom: 8px;">
+            <strong>Unique Microservices Identified:</strong> <span id="profile-services-count" style="color: var(--accent-green);">0</span>
+          </div>
+          <div id="profile-services-list" style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px;"></div>
+        </div>
+      </div>
+
+      <!-- Preview Table & Schema Inspector -->
+      <div class="card">
+        <div class="card-title">
+          <span>Telemetry Schema Inspector & Missing Value Analysis</span>
+        </div>
+        <div class="table-container" style="max-height: 280px;">
+          <table id="profile-columns-table">
+            <thead>
+              <tr>
+                <th>Column Name</th>
+                <th>Data Type</th>
+                <th>Missing Count</th>
+                <th>Missing %</th>
+                <th>Sample Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No dataset loaded.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Raw Preview -->
+      <div class="card">
+        <div class="card-title"><span>Dataset Preview (First 10 Rows)</span></div>
+        <div class="table-container" style="max-height: 320px;">
+          <table id="telemetry-preview-table">
+            <thead>
+              <tr id="preview-header-row"><th>No data loaded</th></tr>
+            </thead>
+            <tbody id="preview-body-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 2: DATASET LABELING STUDIO -->
+    <div id="tab-labeling" class="tab-pane">
+      <div class="notice-box">
+        <strong>Supervised Learning Label Requirement:</strong> Supervised algorithms like XGBoost require ground-truth target labels. You can apply heuristic rule-assisted labeling, import custom labels, manually edit rows, or run unsupervised anomaly detection (Isolation Forest) on unlabeled datasets.
+      </div>
+
+      <div class="grid-2">
+        <!-- Rule Configuration Card -->
+        <div class="card">
+          <div class="card-title"><span>Rule-Assisted Labeling Engine</span></div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+            Automatically assign candidate failure categories with human oversight based on operational microservice thresholds.
+          </p>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>High CPU Threshold (%):</label>
+              <input type="number" id="rule-cpu" value="80" step="5">
+            </div>
+            <div class="form-group">
+              <label>High Memory Threshold (%):</label>
+              <input type="number" id="rule-mem" value="85" step="5">
+            </div>
+            <div class="form-group">
+              <label>High Latency P95 (ms):</label>
+              <input type="number" id="rule-latency" value="400" step="50">
+            </div>
+            <div class="form-group">
+              <label>High Error Rate (%):</label>
+              <input type="number" id="rule-error-rate" value="15" step="1">
+            </div>
+            <div class="form-group">
+              <label>DB Query Duration (ms):</label>
+              <input type="number" id="rule-db-dur" value="250" step="25">
+            </div>
+            <div class="form-group">
+              <label>Restart Count Threshold:</label>
+              <input type="number" id="rule-restarts" value="1" step="1">
+            </div>
+          </div>
+          <button class="btn btn-accent" onclick="applyRuleLabels()">Apply Rule-Assisted Labels</button>
+        </div>
+
+        <!-- Label Distribution & Unsupervised Fallback -->
+        <div class="card">
+          <div class="card-title"><span>Current Label Distribution</span></div>
+          <div style="height: 220px; position: relative;">
+            <canvas id="label-distribution-chart"></canvas>
+          </div>
+          <div style="margin-top: 16px; border-top: 1px solid var(--border-color); padding-top: 14px;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">Unsupervised Anomaly Detection (Isolation Forest)</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+              For datasets lacking ground-truth labels, Isolation Forest identifies statistical outliers without supervision.
+            </p>
+            <button class="btn btn-secondary" onclick="runUnsupervisedIsolationForest()">
+              Run Isolation Forest Fallback
+            </button>
+            <div id="unsupervised-result" style="margin-top: 8px; font-size: 12px; color: var(--accent-cyan);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 3: MACHINE LEARNING TRAINING & EVALUATION STUDIO -->
+    <div id="tab-training" class="tab-pane">
+      <div class="grid-2">
+        <!-- Training Configuration -->
+        <div class="card">
+          <div class="card-title">
+            <span>Train Machine Learning Models</span>
+            <span class="badge badge-tier">XGBoost & Random Forest</span>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Test Split Ratio:</label>
+              <select id="train-test-size">
+                <option value="0.2">20% Test / 80% Train</option>
+                <option value="0.25" selected>25% Test / 75% Train</option>
+                <option value="0.3">30% Test / 70% Train</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Splitting Strategy:</label>
+              <select id="train-split-method">
+                <option value="stratified" selected>Stratified K-Split (Balanced)</option>
+                <option value="temporal">Temporal Chronological (No Future Leakage)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estimators (Trees):</label>
+              <input type="number" id="train-n-estimators" value="120" step="10">
+            </div>
+            <div class="form-group">
+              <label>Max Tree Depth:</label>
+              <input type="number" id="train-max-depth" value="6" step="1">
+            </div>
+            <div class="form-group">
+              <label>Learning Rate (eta):</label>
+              <input type="number" id="train-learning-rate" value="0.1" step="0.02">
+            </div>
+          </div>
+          <button class="btn btn-accent" id="btn-start-training" onclick="trainModels()">
+            🚀 Train XGBoost & Compare with Random Forest Baseline
+          </button>
+        </div>
+
+        <!-- Evaluation Scorecard -->
+        <div class="card">
+          <div class="card-title"><span>Performance Comparison Scorecard</span></div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Model Algorithm</th>
+                  <th>Accuracy</th>
+                  <th>Precision (Macro)</th>
+                  <th>Recall (Macro)</th>
+                  <th>F1-Score (Macro)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>XGBoost (Primary)</strong></td>
+                  <td id="metric-xgb-acc" style="color: var(--accent-green); font-weight: 700;">-</td>
+                  <td id="metric-xgb-prec">-</td>
+                  <td id="metric-xgb-rec">-</td>
+                  <td id="metric-xgb-f1" style="color: var(--accent-cyan); font-weight: 700;">-</td>
+                </tr>
+                <tr>
+                  <td><strong>Random Forest (Baseline)</strong></td>
+                  <td id="metric-rf-acc">-</td>
+                  <td id="metric-rf-prec">-</td>
+                  <td id="metric-rf-rec">-</td>
+                  <td id="metric-rf-f1">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 14px; font-size: 11px; color: var(--text-muted);">
+            * Metrics calculated on unseen test telemetry. No fabricated numbers.
+          </div>
+        </div>
+      </div>
+
+      <!-- Confusion Matrix Heatmap -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span>XGBoost Confusion Matrix</span></div>
+          <div style="height: 280px; position: relative;">
+            <canvas id="confusion-matrix-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>Model Registry & Saved Checkpoints</span></div>
+          <div class="table-container" style="max-height: 280px;">
+            <table id="saved-models-table">
+              <thead>
+                <tr>
+                  <th>Model ID</th>
+                  <th>Trained At</th>
+                  <th>XGB F1</th>
+                  <th>RF F1</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading registry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 4: REAL-TIME TELEMETRY INFERENCE & ANOMALIES -->
+    <div id="tab-inference" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>Active Telemetry Anomaly Detection Stream</span>
+          <button class="btn btn-accent" onclick="runInference()">Run Inference on Current Telemetry</button>
+        </div>
+        <div class="grid-4" style="margin-bottom: 16px;">
+          <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">TOTAL INSPECTED</div>
+            <div id="inf-total" style="font-size: 20px; font-weight: 700;">0</div>
+          </div>
+          <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">CRITICAL ANOMALIES</div>
+            <div id="inf-critical" style="font-size: 20px; font-weight: 700; color: var(--accent-red);">0</div>
+          </div>
+          <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">WARNING ANOMALIES</div>
+            <div id="inf-warning" style="font-size: 20px; font-weight: 700; color: var(--accent-amber);">0</div>
+          </div>
+          <div style="background-color: var(--bg-secondary); padding: 12px; border-radius: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted);">NORMAL HEALTHY</div>
+            <div id="inf-normal" style="font-size: 20px; font-weight: 700; color: var(--accent-green);">0</div>
+          </div>
+        </div>
+
+        <div class="table-container" style="max-height: 400px;">
+          <table id="inference-results-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Time Window</th>
+                <th>Microservice</th>
+                <th>Predicted State</th>
+                <th>Severity</th>
+                <th>Confidence</th>
+                <th>Diagnostic Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Click 'Run Inference' to analyze telemetry records.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 5: SHAP EXPLAINABLE AI -->
+    <div id="tab-xai" class="tab-pane">
+      <div class="notice-box">
+        <strong>Explainable AI (SHAP TreeExplainer):</strong> Integrates game-theoretic Shapley values to explain exactly which telemetry metrics drove the XGBoost model's decision for any microservice anomaly.
+      </div>
+
+      <div class="grid-2">
+        <!-- Global Feature Importance -->
+        <div class="card">
+          <div class="card-title"><span>Global Feature Importance (Mean |SHAP|)</span></div>
+          <div style="height: 320px; position: relative;">
+            <canvas id="shap-global-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- Local Instance Attribution Waterfall -->
+        <div class="card">
+          <div class="card-title">
+            <span>Local Prediction Waterfall Attribution</span>
+            <span id="shap-selected-label" class="badge badge-warning">Select Record</span>
+          </div>
+          <div style="height: 240px; position: relative;">
+            <canvas id="shap-local-chart"></canvas>
+          </div>
+          <div style="margin-top: 14px; background-color: var(--bg-secondary); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 4px;">
+              Explainable Decision Narrative:
+            </div>
+            <div id="shap-narrative-text" style="font-size: 12px; color: var(--text-main);">
+              Select any telemetry record from the Inference or RCA tab to generate an individual SHAP attribution breakdown.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 6: ROOT CAUSE ANALYSIS & DEPENDENCY TOPOLOGY -->
+    <div id="tab-rca" class="tab-pane">
+      <!-- 3-Tier Diagnostic Banner -->
+      <div class="card" style="border-left: 6px solid var(--accent-cyan);">
+        <div class="card-title">
+          <span>Root Cause Diagnosis Investigation</span>
+          <span id="rca-tier-badge" class="badge badge-tier">INVESTIGATION PENDING</span>
+        </div>
+        <div class="grid-3" style="margin-bottom: 14px;">
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted);">AFFECTED MICROSERVICE</div>
+            <div id="rca-affected-srv" style="font-size: 16px; font-weight: 700; color: var(--accent-blue);">-</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted);">ISOLATED ROOT CAUSE SERVICE</div>
+            <div id="rca-root-srv" style="font-size: 16px; font-weight: 700; color: var(--accent-red);">-</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted);">DIAGNOSTIC CONFIDENCE</div>
+            <div id="rca-confidence" style="font-size: 16px; font-weight: 700; color: var(--accent-green);">-</div>
+          </div>
+        </div>
+        <div style="font-size: 13px; margin-bottom: 8px;">
+          <strong>Probable Root Cause:</strong> <span id="rca-probable-cause" style="color: #fff;">-</span>
+        </div>
+        <div style="font-size: 13px; margin-bottom: 8px;">
+          <strong>Why it Happened (Telemetry Drivers):</strong> <span id="rca-why-happened" style="color: var(--text-muted);">-</span>
+        </div>
+        <div style="font-size: 12px; color: var(--accent-amber);">
+          <strong>Evidence Sufficiency:</strong> <span id="rca-evidence-sufficiency">-</span>
+        </div>
+      </div>
+
+      <!-- Service Topology Graph & Blast Radius -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <span>Train Ticket Microservice Dependency Topology (~41 Services)</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Zoom & Drag enabled</span>
+          </div>
+          <div id="topology-canvas"></div>
+          <div style="margin-top: 10px; display: flex; gap: 16px; font-size: 11px;">
+            <div><span style="color: #ef4444;">●</span> Root Cause / Target</div>
+            <div><span style="color: #8b5cf6;">●</span> Blast Radius (Callers Affected)</div>
+            <div><span style="color: #3b82f6;">●</span> Healthy Microservices</div>
+            <div><span style="color: #10b981;">●</span> Databases (MongoDB / MySQL)</div>
+          </div>
+        </div>
+
+        <!-- Blast Radius & Evidence Cards -->
+        <div>
+          <!-- Blast Radius -->
+          <div class="card">
+            <div class="card-title"><span>Cascade Blast Radius Analysis</span></div>
+            <div style="margin-bottom: 12px;">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">UPSTREAM CALLERS IMPACTED:</div>
+              <div id="rca-upstream-list" style="display: flex; flex-wrap: wrap; gap: 6px;">None</div>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">DOWNSTREAM DEPENDENCIES:</div>
+              <div id="rca-downstream-list" style="display: flex; flex-wrap: wrap; gap: 6px;">None</div>
+            </div>
+          </div>
+
+          <!-- Multi-source Supporting Evidence -->
+          <div class="card">
+            <div class="card-title"><span>Multi-Source Supporting Evidence</span></div>
+            <div style="margin-bottom: 10px;">
+              <div style="font-size: 12px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 4px;">Application Logs & Exceptions:</div>
+              <div id="rca-evidence-logs" style="font-family: monospace; font-size: 11px; background-color: var(--bg-secondary); padding: 8px; border-radius: 6px; max-height: 120px; overflow-y: auto;">
+                No relevant error logs found.
+              </div>
+            </div>
+            <div style="margin-bottom: 10px;">
+              <div style="font-size: 12px; font-weight: 700; color: var(--accent-purple); margin-bottom: 4px;">Distributed Trace Bottlenecks:</div>
+              <div id="rca-evidence-traces" style="font-family: monospace; font-size: 11px; background-color: var(--bg-secondary); padding: 8px; border-radius: 6px; max-height: 100px; overflow-y: auto;">
+                No slow trace spans recorded.
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12px; font-weight: 700; color: var(--accent-amber); margin-bottom: 4px;">Operational Events (Kubernetes):</div>
+              <div id="rca-evidence-events" style="font-family: monospace; font-size: 11px; background-color: var(--bg-secondary); padding: 8px; border-radius: 6px; max-height: 80px; overflow-y: auto;">
+                No pod crash or restart events recorded.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TAB 7: INTELLIGENT REMEDIATION PLAYBOOKS -->
+    <div id="tab-playbooks" class="tab-pane">
+      <div class="notice-box notice-warning">
+        <strong>READ-ONLY ADVISORY ENGINE:</strong> Automated modifications, restarts, or mutations to the Train Ticket Kubernetes cluster are strictly disabled. The remediation steps below provide human operators with precise, prioritized diagnosis steps.
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span id="playbook-title">Standard Operational Playbook</span>
+          <span class="badge badge-critical" id="playbook-severity">CRITICAL</span>
+        </div>
+        <div id="playbook-steps" style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
+          <div style="padding: 12px; background-color: var(--bg-secondary); border-radius: 8px;">
+            1. Select an anomaly from the RCA or Inference tab to generate context-specific remediation instructions.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

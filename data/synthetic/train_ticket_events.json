@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2026-11-10T16:23:30.093083",
+    "service": "ts-ticketinfo-service",
+    "event_type": "OOMKilled",
+    "reason": "ContainerKilled",
+    "message": "Pod ts-ticketinfo-service-7f8d9b-x92zk container ts-ticketinfo was terminated: OOMKilled (Exit Code 137). Limit: 1024Mi."
+  }
+]

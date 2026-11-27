@@ -1,0 +1,121 @@
+timestamp,service,level,message,trace_id,span_id,exception
+2026-11-10T15:48:30.093083,ts-order-service,INFO,Order processed successfully for user 1005. Ticket confirmed.,trc-001001,spn-912,
+2026-11-10T15:49:00.093083,ts-order-service,INFO,Order processed successfully for user 1057. Ticket confirmed.,trc-001002,spn-149,
+2026-11-10T15:49:30.093083,ts-order-service,INFO,Order processed successfully for user 1033. Ticket confirmed.,trc-001003,spn-591,
+2026-11-10T15:50:00.093083,ts-order-service,INFO,Order processed successfully for user 1011. Ticket confirmed.,trc-001004,spn-558,
+2026-11-10T15:50:30.093083,ts-order-service,INFO,Order processed successfully for user 1074. Ticket confirmed.,trc-001005,spn-372,
+2026-11-10T15:51:00.093083,ts-order-service,INFO,Order processed successfully for user 1059. Ticket confirmed.,trc-001006,spn-933,
+2026-11-10T15:51:30.093083,ts-order-service,INFO,Order processed successfully for user 1050. Ticket confirmed.,trc-001007,spn-187,
+2026-11-10T15:52:00.093083,ts-order-service,INFO,Order processed successfully for user 1052. Ticket confirmed.,trc-001008,spn-758,
+2026-11-10T15:52:30.093083,ts-order-service,INFO,Order processed successfully for user 1073. Ticket confirmed.,trc-001009,spn-146,
+2026-11-10T15:53:00.093083,ts-order-service,INFO,Order processed successfully for user 1098. Ticket confirmed.,trc-001010,spn-973,
+2026-11-10T15:53:30.093083,ts-order-service,INFO,Order processed successfully for user 1052. Ticket confirmed.,trc-001011,spn-168,
+2026-11-10T15:54:00.093083,ts-order-service,INFO,Order processed successfully for user 1086. Ticket confirmed.,trc-001012,spn-106,
+2026-11-10T15:54:30.093083,ts-order-service,INFO,Order processed successfully for user 1047. Ticket confirmed.,trc-001013,spn-778,
+2026-11-10T15:55:00.093083,ts-order-service,INFO,Order processed successfully for user 1037. Ticket confirmed.,trc-001014,spn-273,
+2026-11-10T15:55:30.093083,ts-order-service,INFO,Order processed successfully for user 1005. Ticket confirmed.,trc-001015,spn-279,
+2026-11-10T15:56:00.093083,ts-order-service,INFO,Order processed successfully for user 1069. Ticket confirmed.,trc-001016,spn-312,
+2026-11-10T15:56:30.093083,ts-order-service,INFO,Order processed successfully for user 1049. Ticket confirmed.,trc-001017,spn-919,
+2026-11-10T15:57:00.093083,ts-order-service,INFO,Order processed successfully for user 1040. Ticket confirmed.,trc-001018,spn-531,
+2026-11-10T15:57:30.093083,ts-order-service,INFO,Order processed successfully for user 1040. Ticket confirmed.,trc-001019,spn-241,
+2026-11-10T15:58:00.093083,ts-order-service,INFO,Order processed successfully for user 1038. Ticket confirmed.,trc-001020,spn-906,
+2026-11-10T15:58:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001021,spn-426,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T15:59:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001022,spn-583,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T15:59:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001023,spn-699,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:00:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001024,spn-643,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:00:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001025,spn-745,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:01:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001026,spn-476,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:01:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001027,spn-225,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:02:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001028,spn-423,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:02:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001029,spn-838,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:03:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001030,spn-399,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:03:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001031,spn-543,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:04:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001032,spn-131,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:04:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001033,spn-194,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:05:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001034,spn-450,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:05:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001035,spn-610,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:06:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001036,spn-504,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:06:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001037,spn-424,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:07:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001038,spn-840,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:07:30.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001039,spn-954,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:08:00.093083,ts-order-service,ERROR,com.mongodb.MongoTimeoutException: Timed out after 30000 ms while waiting for a server that matches ReadPreference.primary(). Connection pool exhausted.,trc-001040,spn-861,com.mongodb.MongoTimeoutException: connection pool exhausted at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:101)
+2026-11-10T16:08:30.093083,ts-order-service,INFO,Order processed successfully for user 1065. Ticket confirmed.,trc-001041,spn-805,
+2026-11-10T16:09:00.093083,ts-order-service,INFO,Order processed successfully for user 1001. Ticket confirmed.,trc-001042,spn-716,
+2026-11-10T16:09:30.093083,ts-order-service,INFO,Order processed successfully for user 1092. Ticket confirmed.,trc-001043,spn-758,
+2026-11-10T16:10:00.093083,ts-order-service,INFO,Order processed successfully for user 1083. Ticket confirmed.,trc-001044,spn-199,
+2026-11-10T16:10:30.093083,ts-order-service,INFO,Order processed successfully for user 1091. Ticket confirmed.,trc-001045,spn-238,
+2026-11-10T16:11:00.093083,ts-order-service,INFO,Order processed successfully for user 1066. Ticket confirmed.,trc-001046,spn-591,
+2026-11-10T16:11:30.093083,ts-order-service,INFO,Order processed successfully for user 1027. Ticket confirmed.,trc-001047,spn-723,
+2026-11-10T16:12:00.093083,ts-order-service,INFO,Order processed successfully for user 1075. Ticket confirmed.,trc-001048,spn-230,
+2026-11-10T16:12:30.093083,ts-order-service,INFO,Order processed successfully for user 1039. Ticket confirmed.,trc-001049,spn-894,
+2026-11-10T16:13:00.093083,ts-order-service,INFO,Order processed successfully for user 1070. Ticket confirmed.,trc-001050,spn-414,
+2026-11-10T16:13:30.093083,ts-order-service,INFO,Order processed successfully for user 1025. Ticket confirmed.,trc-001051,spn-833,
+2026-11-10T16:14:00.093083,ts-order-service,INFO,Order processed successfully for user 1014. Ticket confirmed.,trc-001052,spn-923,
+2026-11-10T16:14:30.093083,ts-order-service,INFO,Order processed successfully for user 1027. Ticket confirmed.,trc-001053,spn-905,
+2026-11-10T16:15:00.093083,ts-order-service,INFO,Order processed successfully for user 1009. Ticket confirmed.,trc-001054,spn-336,
+2026-11-10T16:15:30.093083,ts-order-service,INFO,Order processed successfully for user 1071. Ticket confirmed.,trc-001055,spn-215,
+2026-11-10T16:16:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001056,spn-901,
+2026-11-10T16:16:30.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001057,spn-426,
+2026-11-10T16:17:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001058,spn-395,
+2026-11-10T16:17:30.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001059,spn-642,
+2026-11-10T16:18:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001060,spn-791,
+2026-11-10T16:18:30.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001061,spn-692,
+2026-11-10T16:19:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001062,spn-161,
+2026-11-10T16:19:30.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001063,spn-230,
+2026-11-10T16:20:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001064,spn-858,
+2026-11-10T16:20:30.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001065,spn-556,
+2026-11-10T16:21:00.093083,ts-ticketinfo-service,WARN,High heap memory utilization (>85%). GC pause duration 1820ms.,trc-001066,spn-468,
+2026-11-10T16:21:30.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001067,spn-382,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:22:00.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001068,spn-953,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:22:30.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001069,spn-907,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:23:00.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001070,spn-410,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:23:30.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001071,spn-800,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:24:00.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001072,spn-376,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:24:30.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001073,spn-278,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:25:00.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001074,spn-251,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:25:30.093083,ts-ticketinfo-service,ERROR,java.lang.OutOfMemoryError: Java heap space. Garbage collection overhead limit exceeded.,trc-001075,spn-206,java.lang.OutOfMemoryError: Java heap space
+2026-11-10T16:26:00.093083,ts-order-service,INFO,Order processed successfully for user 1066. Ticket confirmed.,trc-001076,spn-761,
+2026-11-10T16:26:30.093083,ts-order-service,INFO,Order processed successfully for user 1031. Ticket confirmed.,trc-001077,spn-212,
+2026-11-10T16:27:00.093083,ts-order-service,INFO,Order processed successfully for user 1069. Ticket confirmed.,trc-001078,spn-494,
+2026-11-10T16:27:30.093083,ts-order-service,INFO,Order processed successfully for user 1086. Ticket confirmed.,trc-001079,spn-199,
+2026-11-10T16:28:00.093083,ts-order-service,INFO,Order processed successfully for user 1004. Ticket confirmed.,trc-001080,spn-434,
+2026-11-10T16:28:30.093083,ts-order-service,INFO,Order processed successfully for user 1098. Ticket confirmed.,trc-001081,spn-970,
+2026-11-10T16:29:00.093083,ts-order-service,INFO,Order processed successfully for user 1095. Ticket confirmed.,trc-001082,spn-418,
+2026-11-10T16:29:30.093083,ts-order-service,INFO,Order processed successfully for user 1012. Ticket confirmed.,trc-001083,spn-880,
+2026-11-10T16:30:00.093083,ts-order-service,INFO,Order processed successfully for user 1024. Ticket confirmed.,trc-001084,spn-876,
+2026-11-10T16:30:30.093083,ts-order-service,INFO,Order processed successfully for user 1013. Ticket confirmed.,trc-001085,spn-402,
+2026-11-10T16:31:00.093083,ts-order-service,INFO,Order processed successfully for user 1021. Ticket confirmed.,trc-001086,spn-589,
+2026-11-10T16:31:30.093083,ts-order-service,INFO,Order processed successfully for user 1054. Ticket confirmed.,trc-001087,spn-222,
+2026-11-10T16:32:00.093083,ts-order-service,INFO,Order processed successfully for user 1059. Ticket confirmed.,trc-001088,spn-358,
+2026-11-10T16:32:30.093083,ts-order-service,INFO,Order processed successfully for user 1005. Ticket confirmed.,trc-001089,spn-424,
+2026-11-10T16:33:00.093083,ts-order-service,INFO,Order processed successfully for user 1045. Ticket confirmed.,trc-001090,spn-972,
+2026-11-10T16:33:30.093083,ts-order-service,INFO,Order processed successfully for user 1082. Ticket confirmed.,trc-001091,spn-405,
+2026-11-10T16:34:00.093083,ts-order-service,INFO,Order processed successfully for user 1061. Ticket confirmed.,trc-001092,spn-240,
+2026-11-10T16:34:30.093083,ts-order-service,INFO,Order processed successfully for user 1063. Ticket confirmed.,trc-001093,spn-366,
+2026-11-10T16:35:00.093083,ts-order-service,INFO,Order processed successfully for user 1024. Ticket confirmed.,trc-001094,spn-394,
+2026-11-10T16:35:30.093083,ts-order-service,INFO,Order processed successfully for user 1010. Ticket confirmed.,trc-001095,spn-338,
+2026-11-10T16:36:00.093083,ts-order-service,INFO,Order processed successfully for user 1083. Ticket confirmed.,trc-001096,spn-215,
+2026-11-10T16:36:30.093083,ts-order-service,INFO,Order processed successfully for user 1072. Ticket confirmed.,trc-001097,spn-552,
+2026-11-10T16:37:00.093083,ts-order-service,INFO,Order processed successfully for user 1075. Ticket confirmed.,trc-001098,spn-328,
+2026-11-10T16:37:30.093083,ts-order-service,INFO,Order processed successfully for user 1044. Ticket confirmed.,trc-001099,spn-262,
+2026-11-10T16:38:00.093083,ts-order-service,INFO,Order processed successfully for user 1062. Ticket confirmed.,trc-001100,spn-297,
+2026-11-10T16:38:30.093083,ts-order-service,INFO,Order processed successfully for user 1071. Ticket confirmed.,trc-001101,spn-257,
+2026-11-10T16:39:00.093083,ts-order-service,INFO,Order processed successfully for user 1084. Ticket confirmed.,trc-001102,spn-201,
+2026-11-10T16:39:30.093083,ts-order-service,INFO,Order processed successfully for user 1079. Ticket confirmed.,trc-001103,spn-774,
+2026-11-10T16:40:00.093083,ts-order-service,INFO,Order processed successfully for user 1061. Ticket confirmed.,trc-001104,spn-539,
+2026-11-10T16:40:30.093083,ts-order-service,INFO,Order processed successfully for user 1090. Ticket confirmed.,trc-001105,spn-292,
+2026-11-10T16:41:00.093083,ts-order-service,INFO,Order processed successfully for user 1073. Ticket confirmed.,trc-001106,spn-862,
+2026-11-10T16:41:30.093083,ts-order-service,INFO,Order processed successfully for user 1058. Ticket confirmed.,trc-001107,spn-110,
+2026-11-10T16:42:00.093083,ts-order-service,INFO,Order processed successfully for user 1064. Ticket confirmed.,trc-001108,spn-383,
+2026-11-10T16:42:30.093083,ts-order-service,INFO,Order processed successfully for user 1054. Ticket confirmed.,trc-001109,spn-540,
+2026-11-10T16:43:00.093083,ts-order-service,INFO,Order processed successfully for user 1049. Ticket confirmed.,trc-001110,spn-588,
+2026-11-10T16:43:30.093083,ts-order-service,INFO,Order processed successfully for user 1053. Ticket confirmed.,trc-001111,spn-776,
+2026-11-10T16:44:00.093083,ts-order-service,INFO,Order processed successfully for user 1024. Ticket confirmed.,trc-001112,spn-331,
+2026-11-10T16:44:30.093083,ts-order-service,INFO,Order processed successfully for user 1088. Ticket confirmed.,trc-001113,spn-390,
+2026-11-10T16:45:00.093083,ts-order-service,INFO,Order processed successfully for user 1022. Ticket confirmed.,trc-001114,spn-649,
+2026-11-10T16:45:30.093083,ts-order-service,INFO,Order processed successfully for user 1013. Ticket confirmed.,trc-001115,spn-762,
+2026-11-10T16:46:00.093083,ts-order-service,INFO,Order processed successfully for user 1010. Ticket confirmed.,trc-001116,spn-868,
+2026-11-10T16:46:30.093083,ts-order-service,INFO,Order processed successfully for user 1029. Ticket confirmed.,trc-001117,spn-403,
+2026-11-10T16:47:00.093083,ts-order-service,INFO,Order processed successfully for user 1075. Ticket confirmed.,trc-001118,spn-289,
+2026-11-10T16:47:30.093083,ts-order-service,INFO,Order processed successfully for user 1020. Ticket confirmed.,trc-001119,spn-233,
+2026-11-10T16:48:00.093083,ts-order-service,INFO,Order processed successfully for user 1038. Ticket confirmed.,trc-001120,spn-631,
